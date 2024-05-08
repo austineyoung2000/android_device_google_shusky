@@ -17,8 +17,3 @@
 package {
     default_applicable_licenses: ["Android-Apache-2.0"],
 }
-
-runtime_resource_overlay {
-    name: "SettingsHuskyOverlay",
-    product_specific: true,
-}

@@ -54,6 +54,9 @@ $(call inherit-product-if-exists, vendor/google_devices/husky/proprietary/device
 $(call inherit-product-if-exists, vendor/qorvo/uwb/qm35-hal/Device.mk)
 $(call inherit-product-if-exists, vendor/google_devices/shusky/proprietary/WallpapersHusky.mk)
 
+# Use libc variant by default
+PRODUCT_USE_SCUDO := true
+
 # display
 DEVICE_PACKAGE_OVERLAYS += device/google/shusky/husky/overlay
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += ro.surface_flinger.ignore_hdr_camera_layers=true

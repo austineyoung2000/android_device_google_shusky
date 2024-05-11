@@ -27,6 +27,9 @@ TARGET_HAS_UDFPS := true
 # Gms 
 WITH_GMS := true
 
+# Ship Pixel Launcher
+TARGET_DEFAULT_PIXEL_LAUNCHER := true
+
 # Boot animation
 TARGET_SCREEN_HEIGHT := 2992
 TARGET_SCREEN_WIDTH := 1344

@@ -6,4 +6,7 @@
 <resources> 
     <!-- Preferred max refresh rate at AOD & Ambient Display, if supported by the display. -->
     <integer name="config_aodMaxRefreshRate">60</integer>
+
+        <!-- Udfps animation -->
+    <dimen name="udfps_animation_offset">-16dp</dimen>
 </resources>

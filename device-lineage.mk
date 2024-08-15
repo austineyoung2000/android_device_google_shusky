@@ -24,6 +24,9 @@ TARGET_PREBUILT_KERNEL := device/google/shusky-kernel/Image.lz4
 # PixelParts
 include packages/apps/PixelParts/device.mk
 
+# Basic Call Recorder
+include vendor/bcr/bcr.mk
+
 # PowerShare
 include hardware/google/pixel/powershare/device.mk
 

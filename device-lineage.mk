@@ -27,6 +27,9 @@ include packages/apps/PixelParts/device.mk
 # Basic Call Recorder
 include vendor/bcr/bcr.mk
 
+# Face Unlock
+-include vendor/google/faceunlock/device.mk
+
 # PowerShare
 include hardware/google/pixel/powershare/device.mk
 

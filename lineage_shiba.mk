@@ -23,6 +23,8 @@ PRODUCT_NAME := lineage_$(DEVICE_CODENAME)
 
 # Addons
 TARGET_HAS_UDFPS := true
+
+# disable/enable blur support, default is false
 TARGET_ENABLE_BLUR := true
 
 # Gms 

@@ -21,17 +21,8 @@ PRODUCT_PACKAGES += \
 # Kernel
 TARGET_PREBUILT_KERNEL := device/google/shusky-kernel/Image.lz4
 
-# PixelParts
-include packages/apps/PixelParts/device.mk
-
 # Basic Call Recorder
 include vendor/bcr/bcr.mk
-
-# Viper4AndroidFx
-include packages/apps/ViPER4AndroidFX/config.mk
-
-# Face Unlock
--include vendor/google/faceunlock/device.mk
 
 # PowerShare
 include hardware/google/pixel/powershare/device.mk

@@ -297,19 +297,6 @@ PRODUCT_PACKAGES += \
 	WifiOverlay2023 \
 	PixelWifiOverlay2023
 
-# Include Carrier Runtime Configuration
-PRODUCT_PACKAGE_OVERLAYS += \
-    device/google/shusky/overlay
-
-# RRO Packages
-PRODUCT_PACKAGES += \
-    CarrierSettingsOverlay \
-    CarrierSettingsConfigOverlay \
-    CarrierSettingsProviderOverlay \
-    CarrierSettingsSystemUIOverlay \
-    TeleServiceOverlay \
-    TelephonyProviderOverlay
-
 # Trusty liboemcrypto.so
 PRODUCT_SOONG_NAMESPACES += vendor/google_devices/shusky/prebuilts
 

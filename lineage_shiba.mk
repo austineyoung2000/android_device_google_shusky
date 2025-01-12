@@ -39,6 +39,9 @@ TARGET_DEFAULT_PIXEL_LAUNCHER := true
 # Ship LawnChair 
 TARGET_PREBUILT_LAWNCHAIR_LAUNCHER := true
 
+#Ship Pixel Overlays
+WITH_PIXEL_OVERLAYS := true
+
 RISING_MAINTAINER=EliteDarkKaiser
 
 # Boot animation

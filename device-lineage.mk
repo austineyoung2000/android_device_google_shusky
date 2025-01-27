@@ -27,6 +27,10 @@ include vendor/bcr/bcr.mk
 # PixelParts
 include packages/apps/PixelParts/device.mk
 
+# IWLAN
+PRODUCT_PACKAGES += \
+    Iwlan
+
 # PowerShare
 include hardware/google/pixel/powershare/device.mk
 

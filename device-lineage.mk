@@ -25,7 +25,7 @@ TARGET_PREBUILT_KERNEL := device/google/shusky-kernel/Image.lz4
 include vendor/bcr/bcr.mk
 
 # PixelParts
-include packages/apps/PixelParts/device.mk
+-include packages/apps/PixelParts/device.mk
 
 # IWLAN
 PRODUCT_PACKAGES += \
@@ -35,7 +35,10 @@ PRODUCT_PACKAGES += \
 include hardware/google/pixel/powershare/device.mk
 
 # Viper4Android FX
-include packages/apps/ViPER4AndroidFX/config.mk
+-include packages/apps/ViPER4AndroidFX/config.mk
+
+# Face Unlock
+-include vendor/google/faceunlock/config.mk
 
 # PixelSupport
 include device/google/gs-common/pixelsupport/pixelsupport.mk

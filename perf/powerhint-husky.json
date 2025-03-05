@@ -2866,6 +2866,12 @@
     },
     {
       "PowerHint": "GAME",
+      "Node": "GPUMinFreq",
+      "Duration": 0,
+      "Value": "419000"
+    },
+    {
+      "PowerHint": "GAME",
       "Node": "VIRTUAL-SKIN-CPU-MID",
       "Duration": 0,
       "Value": "game"

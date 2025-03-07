@@ -24,6 +24,14 @@ PRODUCT_NAME := lineage_$(DEVICE_CODENAME)
 # Gms 
 WITH_GMS := true
 
+# To Build Cinematic Wallpaper (Works with Pixel as well as Matrixx launcher)
+TARGET_SUPPORTS_WALLEFFECT := true
+
+#Some more GMS Flag
+TARGET_SUPPORTS_GOOGLE_RECORDER := true
+TARGET_INCLUDE_STOCK_ARCORE := true
+TARGET_INCLUDE_STOCK_AICORE := true
+
 # Boot animation
 TARGET_SCREEN_HEIGHT := 2400
 TARGET_SCREEN_WIDTH := 1080

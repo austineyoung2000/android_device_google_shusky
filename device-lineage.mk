@@ -15,21 +15,15 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.telephony.euicc.mep.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/android.hardware.telephony.euicc.mep.xml \
     frameworks/native/data/etc/android.hardware.telephony.euicc.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/android.hardware.telephony.euicc.xml
 
+# IWLAN
 PRODUCT_PACKAGES += \
-    EuiccSupportPixelOverlay
-
-# Kernel
-TARGET_PREBUILT_KERNEL := device/google/shusky-kernel/Image.lz4
+    Iwlan
 
 # Basic Call Recorder
 include vendor/bcr/bcr.mk
 
 # PixelParts
 -include packages/apps/PixelParts/device.mk
-
-# IWLAN
-PRODUCT_PACKAGES += \
-    Iwlan
 
 # PowerShare
 include hardware/google/pixel/powershare/device.mk

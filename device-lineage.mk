@@ -20,7 +20,7 @@ PRODUCT_PACKAGES += \
     Iwlan
 
 # Basic Call Recorder
-include vendor/bcr/bcr.mk
+-include vendor/bcr/bcr.mk
 
 # PixelParts
 -include packages/apps/PixelParts/device.mk

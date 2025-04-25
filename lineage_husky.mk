@@ -33,6 +33,9 @@ TARGET_ENABLE_BLUR := true
 # Gms 
 WITH_GMS := true
 
+# Whether to ship prebuilt Google Dialer and Messages
+TARGET_INCLUDE_GOOGLE_DIALER := true
+
 # Ship Google Camera
 TARGET_PREBUILT_GOOGLE_CAMERA := true
 

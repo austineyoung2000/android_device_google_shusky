@@ -9,7 +9,7 @@ BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
 DISABLE_ARTIFACT_PATH_REQUIREMENTS := true 
 DEVICE_PATH := device/google/shusky
 # Init
-TARGET_INIT_VENDOR_LIB := //$(DEVICE_PATH):libinit_shusky
+VENDOR_INIT_LIB := //$(DEVICE_PATH):libinit_shusky
 
 # Kernel modules
 BOARD_VENDOR_KERNEL_RAMDISK_KERNEL_MODULES_BLOCKLIST_FILE := $(DEVICE_PATH)/modules.blocklist.vendor_kernel_boot

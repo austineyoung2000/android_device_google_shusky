@@ -6,6 +6,7 @@
 
 # Disable Artifact Path Requirememts
 DISABLE_ARTIFACT_PATH_REQUIREMENTS := true
+RELAX_USES_LIBRARY_CHECK=true
 
 # Kernel modules
 BOARD_VENDOR_KERNEL_RAMDISK_KERNEL_MODULES_BLOCKLIST_FILE := $(DEVICE_PATH)/modules.blocklist.vendor_kernel_boot

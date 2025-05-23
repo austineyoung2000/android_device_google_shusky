@@ -22,8 +22,8 @@ PRODUCT_PACKAGES += \
 # PowerShare
 include hardware/google/pixel/powershare/device.mk
 
-# Face Unlock
--include vendor/google/faceunlock/config.mk
+# Pixel Parts
+include packages_apps_PixelParts/device.mk
 
 # PixelSupport
 include device/google/gs-common/pixelsupport/pixelsupport.mk

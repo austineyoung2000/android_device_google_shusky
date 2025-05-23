@@ -23,6 +23,10 @@ PRODUCT_NAME := lineage_$(DEVICE_CODENAME)
 
 # Gms 
 WITH_GMS := true
+TARGET_FACE_UNLOCK_SUPPORTED := true
+
+#Ship Google Camera
+$(call inherit-product, vendor/google/camera/camera.mk)
 
 # To Build Cinematic Wallpaper (Works with Pixel as well as Matrixx launcher)
 TARGET_SUPPORTS_WALLEFFECT := true

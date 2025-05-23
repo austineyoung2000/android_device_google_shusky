@@ -21,6 +21,9 @@ PRODUCT_BRAND := google
 PRODUCT_MODEL := Pixel 8 Pro
 PRODUCT_NAME := lineage_$(DEVICE_CODENAME)
 
+# Gms 
+WITH_GMS := true
+
 # Boot animation
 TARGET_SCREEN_HEIGHT := 2992
 TARGET_SCREEN_WIDTH := 1344

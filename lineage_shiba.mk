@@ -23,6 +23,7 @@ PRODUCT_NAME := lineage_$(DEVICE_CODENAME)
 
 # Gms 
 WITH_GMS := true
+WITH_PIXEL_OVERLAYS := true
 
 # To Build Cinematic Wallpaper (Works with Pixel as well as Matrixx launcher)
 TARGET_SUPPORTS_WALLEFFECT := true

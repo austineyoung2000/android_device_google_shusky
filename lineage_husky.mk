@@ -23,7 +23,7 @@ PRODUCT_NAME := lineage_$(DEVICE_CODENAME)
 
 # Gms 
 WITH_GMS := true
-TARGET_FACE_UNLOCK_SUPPORTED := true
+WITH_PIXEL_OVERLAYS := true
 
 #Ship Google Camera
 $(call inherit-product, vendor/google/camera/camera.mk)

@@ -34,6 +34,12 @@ include device/google/gs-common/pixelsupport/pixelsupport.mk
 # wireless_charger HAL service
 include device/google/gs-common/wireless_charger/wireless_charger.mk
 
+# Enables Google Face Unlock (GFU)
+TARGET_SUPPORTS_GFU := true
+
+# Device Supports Face Unlock
+TARGET_FACE_UNLOCK_SUPPORTED := true
+
 # Build necessary packages for vendor
 
 # Codec2

@@ -25,11 +25,11 @@ PRODUCT_PACKAGES += \
 # PixelParts
 -include packages/apps/PixelParts/device.mk
 
+# Ship Google Face Unlock ( GFU )Add commentMore actions
+TARGET_SUPPORTS_GFU := true
+
 # PowerShare
 include hardware/google/pixel/powershare/device.mk
-
-# Face Unlock
--include vendor/google/faceunlock/config.mk
 
 # PixelSupport
 include device/google/gs-common/pixelsupport/pixelsupport.mk

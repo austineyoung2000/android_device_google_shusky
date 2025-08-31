@@ -14,9 +14,6 @@
 # limitations under the License.
 #
 
-# Restrict the visibility of Android.bp files to improve build analysis time
-$(call inherit-product-if-exists, vendor/google/products/sources_pixel.mk)
-
 ifdef RELEASE_GOOGLE_SHIBA_RADIO_DIR
 RELEASE_GOOGLE_PRODUCT_RADIO_DIR := $(RELEASE_GOOGLE_SHIBA_RADIO_DIR)
 endif
@@ -36,22 +33,13 @@ TARGET_BOARD_KERNEL_HEADERS ?= $(RELEASE_KERNEL_SHIBA_DIR)/kernel-headers
 LOCAL_PATH := device/google/shusky
 
 ifneq ($(TARGET_BOOTS_16K),true)
-PRODUCT_16K_DEVELOPER_OPTION := $(RELEASE_GOOGLE_SHIBA_16K_DEVELOPER_OPTION)
+PRODUCT_16K_DEVELOPER_OPTION := true
 endif
-
-$(call inherit-product-if-exists, vendor/google_devices/shusky/prebuilts/device-vendor-shiba.mk)
-$(call inherit-product-if-exists, vendor/google_devices/zuma/prebuilts/device-vendor.mk)
-$(call inherit-product-if-exists, vendor/google_devices/zuma/proprietary/device-vendor.mk)
-$(call inherit-product-if-exists, vendor/google_devices/shusky/proprietary/shiba/device-vendor-shiba.mk)
-$(call inherit-product-if-exists, vendor/google_devices/shiba/proprietary/device-vendor.mk)
-$(call inherit-product-if-exists, vendor/google_devices/shusky/proprietary/WallpapersShiba.mk)
 
 DEVICE_PACKAGE_OVERLAYS += device/google/shusky/shiba/overlay
 CAMERA_PRODUCT ?= shiba
 
-ifeq ($(RELEASE_PIXEL_AIDL_AUDIO_HAL_ZUMA),true)
 USE_AUDIO_HAL_AIDL := true
-endif
 
 include device/google/shusky/camera/camera.mk
 include device/google/shusky/audio/shiba/audio-tables.mk
@@ -129,26 +117,13 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PRODUCT_PROPERTIES += \
     ro.bluetooth.finder.supported=true
 
-ifeq ($(USE_AUDIO_HAL_AIDL),true)
-# AIDL
-
-else
-# HIDL
-
-# Spatial Audio
-PRODUCT_PACKAGES += \
-	libspatialaudio
-
-# Sound Dose
-PRODUCT_PACKAGES += \
-	android.hardware.audio.sounddose-vendor-impl \
-	audio_sounddose_aoc
-
-endif
-
 # declare use of spatial audio
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.audio.spatializer_enabled=true
+
+# HdMic Audio
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.vendor.app.audio.gsenet.version=1
 
 # Audio CCA property
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -159,40 +134,20 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.gms.dck.eligible_wcc=2 \
     ro.gms.dck.se_capability=1
 
-# Bluetooth hci_inject test tool
-PRODUCT_PACKAGES_ENG += \
-    hci_inject
-
 # Bluetooth OPUS codec
 PRODUCT_PRODUCT_PROPERTIES += \
     persist.bluetooth.opus.enabled=true
-
-# Bluetooth SAR test tool
-PRODUCT_PACKAGES_ENG += \
-    sar_test
-
-# Bluetooth EWP test tool
-PRODUCT_PACKAGES_ENG += \
-    ewp_tool
 
 # Bluetooth AAC VBR
 PRODUCT_PRODUCT_PROPERTIES += \
     persist.bluetooth.a2dp_aac.vbr_supported=true
 
 # Override BQR mask to enable LE Audio Choppy report, remove BTRT logging
-ifneq (,$(filter eng, $(TARGET_BUILD_VARIANT)))
 PRODUCT_PRODUCT_PROPERTIES += \
-    persist.bluetooth.bqr.event_mask=295006 \
-    persist.bluetooth.bqr.vnd_quality_mask=29 \
-    persist.bluetooth.bqr.vnd_trace_mask=0 \
-    persist.bluetooth.vendor.btsnoop=true
-else
-PRODUCT_PRODUCT_PROPERTIES += \
-    persist.bluetooth.bqr.event_mask=295006 \
+    persist.bluetooth.bqr.event_mask=295262 \
     persist.bluetooth.bqr.vnd_quality_mask=16 \
     persist.bluetooth.bqr.vnd_trace_mask=0 \
     persist.bluetooth.vendor.btsnoop=false
-endif
 
 # Spatial Audio
 PRODUCT_PACKAGES += \
@@ -215,8 +170,8 @@ PRODUCT_PRODUCT_PROPERTIES += \
 
 # Bluetooth LE Audio Broadcast
 PRODUCT_PRODUCT_PROPERTIES += \
-	bluetooth.profile.bap.broadcast.assist.enabled=true \
-	bluetooth.profile.bap.broadcast.source.enabled=true
+	bluetooth.profile.bap.broadcast.assist.enabled?=true \
+	bluetooth.profile.bap.broadcast.source.enabled?=true
 
 # Bluetooth LE Audio enable hardware offloading
 PRODUCT_PRODUCT_PROPERTIES += \
@@ -239,6 +194,10 @@ PRODUCT_PRODUCT_PROPERTIES += \
 # Support LE Audio dual mic SWB call
 PRODUCT_PRODUCT_PROPERTIES += \
     bluetooth.leaudio.dual_bidirection_swb.supported=true
+
+# Disable Bluetooth HAP by default
+PRODUCT_PRODUCT_PROPERTIES += \
+    bluetooth.profile.hap.enabled_by_default=false
 
 # Support LE & Classic concurrent encryption (b/330704060)
 PRODUCT_PRODUCT_PROPERTIES += \
@@ -288,9 +247,6 @@ PRODUCT_PACKAGES += \
 	WifiOverlay2023 \
 	PixelWifiOverlay2023
 
-# Trusty liboemcrypto.so
-PRODUCT_SOONG_NAMESPACES += vendor/google_devices/shusky/prebuilts
-
 # Location
 # SDK build system
 include device/google/gs-common/gps/brcm/device.mk
@@ -299,44 +255,21 @@ PRODUCT_COPY_FILES += \
        device/google/shusky/location/gps.cer:$(TARGET_COPY_OUT_VENDOR)/etc/gnss/gps.cer
 
 # Location
-ifneq (,$(filter eng, $(TARGET_BUILD_VARIANT)))
+PRODUCT_COPY_FILES += \
+    device/google/shusky/location/lhd_user.conf:$(TARGET_COPY_OUT_VENDOR)/etc/gnss/lhd.conf \
+    device/google/shusky/location/scd_user.conf:$(TARGET_COPY_OUT_VENDOR)/etc/gnss/scd.conf
+ifneq (,$(filter 6.1, $(TARGET_LINUX_KERNEL_VERSION)))
     PRODUCT_COPY_FILES += \
-        device/google/shusky/location/lhd.conf:$(TARGET_COPY_OUT_VENDOR)/etc/gnss/lhd.conf \
-        device/google/shusky/location/scd.conf:$(TARGET_COPY_OUT_VENDOR)/etc/gnss/scd.conf
-    ifneq (,$(filter 6.1, $(TARGET_LINUX_KERNEL_VERSION)))
-        PRODUCT_COPY_FILES += \
-            device/google/shusky/location/gps.6.1.xml.sb3:$(TARGET_COPY_OUT_VENDOR)/etc/gnss/gps.xml
-    else
-        PRODUCT_COPY_FILES += \
-            device/google/shusky/location/gps.xml.sb3:$(TARGET_COPY_OUT_VENDOR)/etc/gnss/gps.xml
-    endif
+        device/google/shusky/location/gps_user.6.1.xml.sb3:$(TARGET_COPY_OUT_VENDOR)/etc/gnss/gps.xml
 else
     PRODUCT_COPY_FILES += \
-        device/google/shusky/location/lhd_user.conf:$(TARGET_COPY_OUT_VENDOR)/etc/gnss/lhd.conf \
-        device/google/shusky/location/scd_user.conf:$(TARGET_COPY_OUT_VENDOR)/etc/gnss/scd.conf
-    ifneq (,$(filter 6.1, $(TARGET_LINUX_KERNEL_VERSION)))
-        PRODUCT_COPY_FILES += \
-            device/google/shusky/location/gps_user.6.1.xml.sb3:$(TARGET_COPY_OUT_VENDOR)/etc/gnss/gps.xml
-    else
-        PRODUCT_COPY_FILES += \
-            device/google/shusky/location/gps_user.xml.sb3:$(TARGET_COPY_OUT_VENDOR)/etc/gnss/gps.xml
-    endif
+        device/google/shusky/location/gps_user.xml.sb3:$(TARGET_COPY_OUT_VENDOR)/etc/gnss/gps.xml
 endif
 
 # Set zram size
 PRODUCT_VENDOR_PROPERTIES += \
 	vendor.zram.size=50p \
 	persist.device_config.configuration.disable_rescue_party=true
-
-# Fingerprint HAL
-GOODIX_CONFIG_BUILD_VERSION := g7_trusty
-APEX_FPS_TA_DIR := //vendor/google_devices/shusky/prebuilts
-$(call inherit-product-if-exists, vendor/goodix/udfps/configuration/udfps_common.mk)
-ifeq ($(filter factory%, $(TARGET_PRODUCT)),)
-$(call inherit-product-if-exists, vendor/goodix/udfps/configuration/udfps_shipping.mk)
-else
-$(call inherit-product-if-exists, vendor/goodix/udfps/configuration/udfps_factory.mk)
-endif
 
 # Fingerprint exposure compensation
 PRODUCT_VENDOR_PROPERTIES += \
@@ -355,6 +288,7 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_VENDOR_PROPERTIES += \
     persist.vendor.udfps.als_feed_forward_supported=true \
+    persist.vendor.udfps.fps_touch_handler_supported=false \
     persist.vendor.udfps.lhbm_controlled_in_hal_supported=true
 
 PRODUCT_COPY_FILES += \
@@ -425,12 +359,6 @@ endif
 PRODUCT_VENDOR_PROPERTIES += \
     persist.vendor.camera.rls_supported=false
 
-# WLC userdebug specific
-ifneq (,$(filter eng, $(TARGET_BUILD_VARIANT)))
-    PRODUCT_COPY_FILES += \
-        device/google/zuma/init.hardware.wlc.rc.userdebug:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.wlc.rc
-endif
-
 # Setup Wizard device-specific settings
 PRODUCT_PRODUCT_PROPERTIES += \
     setupwizard.feature.enable_quick_start_flow=true \
@@ -478,16 +406,7 @@ PRODUCT_PACKAGES += \
     NoCutoutOverlay \
     AvoidAppsInCutoutOverlay
 
-# ETM
-ifneq (,$(filter eng, $(TARGET_BUILD_VARIANT)))
-$(call inherit-product-if-exists, device/google/common/etm/device-userdebug-modules.mk)
-endif
-
 PRODUCT_NO_BIONIC_PAGE_SIZE_MACRO := true
-
-ifneq ($(wildcard vendor/arm/mali/valhall),)
-PRODUCT_CHECK_PREBUILT_MAX_PAGE_SIZE := true
-endif
 
 # Bluetooth device id
 # Shiba: 0x410E

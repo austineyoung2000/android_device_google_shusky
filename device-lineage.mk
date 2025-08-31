@@ -45,9 +45,9 @@ TARGET_FACE_UNLOCK_SUPPORTED := true
 
 # Build necessary packages for vendor
 
-# Codec2
+# Dumpstate
 PRODUCT_PACKAGES += \
-    libexynosv4l2
+    dump_gsc.sh
 
 # GNSS
 PRODUCT_PACKAGES += \

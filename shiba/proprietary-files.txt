@@ -23,6 +23,11 @@ product/etc/permissions/com.google.pixel.camera.connectivity.impl.xml
 product/etc/permissions/com.google.pixel.camera.services.cameraidremapper.impl.xml
 product/etc/permissions/com.google.pixel.camera.services.lyricconfigprovider.impl.xml
 
+# Digital Key services
+system_ext/etc/permissions/org.carconnectivity.android.digitalkey.timesync.xml
+system_ext/framework/org.carconnectivity.android.digitalkey.timesync.jar
+system_ext/priv-app/CccDkTimeSyncService/CccDkTimeSyncService.apk;PRESIGNED
+
 # Felica
 product/etc/felica/common.cfg
 product/etc/felica/mfm.cfg

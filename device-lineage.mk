@@ -34,9 +34,6 @@ include device/google/gs-common/pixelsupport/pixelsupport.mk
 # wireless_charger HAL service
 include device/google/gs-common/wireless_charger/wireless_charger.mk
 
-# Ship Google Camera
-$(call inherit-product-if-exists, vendor/google/camera/camera.mk)
-
 # Enables Google Face Unlock (GFU)
 TARGET_SUPPORTS_GFU := true
 
